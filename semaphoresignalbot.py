@@ -52,7 +52,7 @@ async def echo(ctx: ChatContext) -> None:
 
     elif ctx.message.get_body() == "pic":
         path = Path(__file__).parent.absolute() / "bild.png"
-        print(path)
+        print("PFAD______"+path)
         '''
         attachment = {"filename": str(path),
                       "width": "100",
