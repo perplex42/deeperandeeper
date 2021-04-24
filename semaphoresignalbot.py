@@ -51,12 +51,13 @@ async def echo(ctx: ChatContext) -> None:
 
 
     elif ctx.message.get_body() == "pic":
-        path = "/var/www/ludumdare/deeperandeeper/apod.jpg"
+        path = "apod.jpg"
+        print("======="+path)
         attachment = {"filename": str(path),
                       "width": "100",
                       "height": "100"}
         print(attachment)
-        await ctx.message.reply("Irgend ne idee was das ist?", attachments[attachment])
+        await ctx.message.reply("Irgend ne idee was das ist?", attachment)
     elif ctx.message.get_body() == "ping":
         data['player'].append({
             'number': ctx.message.source.number,
