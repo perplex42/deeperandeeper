@@ -1,5 +1,6 @@
 import anyio
 import json
+import time
 from semaphore import Bot, ChatContext
 
 # Connect the bot to number.
@@ -17,7 +18,9 @@ def respond(ctx: ChatContext):
 
         with open('data.json', 'w') as outfile:
             json.dump(data, outfile)
-        return "los gehts"
+        await bot.send_message(ctx.message.source.number, "Sekunde ich such grad noch was...")
+        time.sleep(5)
+        return "so, sorry... ein chaos hier...los gehts. schreib ping"
 
     if ctx.message.get_body() == "ping":
         return "Pong"
