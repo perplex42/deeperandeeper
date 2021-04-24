@@ -11,6 +11,7 @@ class Player():
         self.hp = 100
         self.location_x, self.location_y = world.starting_position
         self.victory = False
+        self.action_request_sent = False
 
     def is_alive(self):
         return self.hp > 0
@@ -63,8 +64,8 @@ class Player():
         r = random.randint(0, len(available_moves) - 1)
         self.do_action(available_moves[r])
 
-    def save_and_exit(self):
-        pickle.dump(self, open( "saved_player.p", "wb" ))
-        pickle.dump(world._world, open( "saved_world.p", "wb" ))
+    def save_and_exit(self, player_id):
+        pickle.dump(self, open( "saved_player_{}.p".format(player_id), "wb" ))
+        pickle.dump(world._world, open("saved_world_{}.p".format(player_id), "wb" ))
         print("Game saved!")
-        exit()
+
