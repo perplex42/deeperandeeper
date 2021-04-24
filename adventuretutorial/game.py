@@ -21,24 +21,27 @@ def play(player_id, message, saved_world=None, saved_player=None):
 
 def game_loop(player, player_id, message):
     room = world.tile_exists(player.location_x, player.location_y)
-    send_msg(player_id, room.intro_text())
+
     if player.is_alive() and not player.victory:
         room = world.tile_exists(player.location_x, player.location_y)
         room.modify_player(player)
         # Check again since the room could have changed the player's state
         if player.is_alive() and not player.victory:
-            send_msg(player_id, "Choose an action:\n")
+
             available_actions = room.available_actions()
-            if message == '' :
+
+            action_input = message
+            correct_command = False
+            for action in available_actions:
+                if action.name == action_input or action.hotkey == action_input :
+                    player.do_action(action, **action.kwargs)
+                    correct_command=True
+            if not correct_command:
+                send_msg(player_id, room.intro_text())
+                send_msg(player_id, "Choose an action:\n")
                 for action in available_actions:
                     send_msg(player_id, action)
-            else:
-                action_input = message
-                print()
-                for action in available_actions:
-                    if action_input == action.hotkey:
-                        player.do_action(action, **action.kwargs)
-                        break
+
         player.save_and_exit(player_id)
 
 

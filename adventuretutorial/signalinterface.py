@@ -1,7 +1,7 @@
 
 def receive_msg():
-    number = '1234'
-    message = input()
+    number = input("number:")
+    message = input("message:")
     return number, message
 
 def send_msg(number, message):

@@ -67,5 +67,5 @@ class Player():
     def save_and_exit(self, player_id):
         pickle.dump(self, open( "saved_player_{}.p".format(player_id), "wb" ))
         pickle.dump(world._world, open("saved_world_{}.p".format(player_id), "wb" ))
-        print("Game saved!")
+        #print("Game saved!")
 
