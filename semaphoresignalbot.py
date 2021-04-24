@@ -47,13 +47,16 @@ async def echo(ctx: ChatContext) -> None:
         time.sleep(10)
         await ctx.message.reply("Bin sofort da. arggg...habs gleich und mach ein Foto!")
         time.sleep(5)
-        await ctx.message.reply("so, sorry... ein chaos hier...hier. ")
-        attachment = {"filename": "bild.png",
+        await ctx.message.reply("so, sorry... ein chaos hier...hier. schreib pic")
+
+
+    elif ctx.message.get_body() == "pic":
+        path = Path(__file__).parent.absolute() / "bild.png"
+        print(path)
+        attachment = {"filename": str(path),
                       "width": "100",
                       "height": "100"}
-        await ctx.message.reply("Irgend ne idee was das ist?", attachment)
-
-
+        await ctx.message.reply("Irgend ne idee was das ist?", attachments[attachment])
     elif ctx.message.get_body() == "ping":
         data['player'].append({
             'number': ctx.message.source.number,
