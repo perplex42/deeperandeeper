@@ -5,7 +5,7 @@ from semaphore import Bot, ChatContext
 bot = Bot("+4915792347840")
 
 def respond(ctx: ChatContext):
-    if ctx.message.get_body() == "Hallo":
+    if ctx.message.get_body() == "Hallo "+ctx.message.uuid:
         return "Selber Hallo"
     if ctx.message.get_body() == "ping":
         return "Pong"
@@ -19,8 +19,8 @@ async def echo(ctx: ChatContext) -> None:
 async def main():
 
     async with bot:
-        await bot.send_message("+4917699811033", "Hi Alex kam das an?")
-        await bot.send_message("+4915144643840", "Hi Ben Kam das an?")
+        # await bot.send_message("+4917699811033", "Hi Alex kam das an?")
+        # await bot.send_message("+4915144643840", "Hi Ben Kam das an?")
 
         # Set profile name.
         await bot.set_profile("Semaphore example bot")
