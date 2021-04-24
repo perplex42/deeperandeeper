@@ -59,6 +59,7 @@ async def echo(ctx: ChatContext) -> None:
                       "height": "100"}
         await ctx.message.reply("Irgend ne idee was das ist?", attachments[attachment])
         '''
+        await ctx.message.reply("pix ende")
     elif ctx.message.get_body() == "ping":
         data['player'].append({
             'number': ctx.message.source.number,
