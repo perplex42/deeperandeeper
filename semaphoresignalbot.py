@@ -51,7 +51,7 @@ async def echo(ctx: ChatContext) -> None:
 
 
     elif ctx.message.get_body() == "pic":
-        path = "/var/www/ludumdare/deeperandeeper/bild.png"
+        path = "/var/www/ludumdare/deeperandeeper/apod.jpg"
         attachment = {"filename": str(path),
                       "width": "100",
                       "height": "100"}
