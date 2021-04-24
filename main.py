@@ -1,15 +1,17 @@
 
 
 import adventuretutorial
-
-def main(name):
-
-    print('Hello')
-
-    adventuretutorial.play()
+import world
+from player import Player
+from pathlib import Path
+import pickle
 
 
-if __name__ == '__main__':
-    main('PyCharm')
 
+def main():
 
+    from adventuretutorial.game import check_for_save
+    check_for_save()
+
+if __name__ == "__main__":
+    main()
