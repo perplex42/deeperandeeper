@@ -1,6 +1,7 @@
 import anyio
 import json
 import time
+from pathlib import Path
 from semaphore import Bot, ChatContext
 
 # Connect the bot to number.
@@ -51,7 +52,7 @@ async def echo(ctx: ChatContext) -> None:
 
 
     elif ctx.message.get_body() == "pic":
-        path = "/var/www/ludumdare/deeperandeeper/apod.jpg"
+        path = Path(__file__).parent.absolute() / "apod.jpg"
         print("======="+path)
         attachment = {"filename": str(path),
                       "width": "100",
