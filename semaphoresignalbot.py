@@ -1,5 +1,4 @@
 import anyio
-import time
 from semaphore import Bot, ChatContext
 
 # Connect the bot to number.
