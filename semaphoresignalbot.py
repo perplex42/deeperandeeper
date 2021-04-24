@@ -29,24 +29,36 @@ def respond(ctx: ChatContext):
 
 @bot.handler('')
 async def echo(ctx: ChatContext) -> None:
+    # wenn nicht existent initplayerjson()
+    with open('player.json') as json_file:
+        data = json.load(json_file)
     if ctx.message.get_body() == "start":
-        data = {}
-        data['player'] = []
         data['player'].append({
             'number': ctx.message.source.number,
             'node': 'start',
             'inventory': ''
         })
-
-        with open('data.json', 'w') as outfile:
+        with open('player.json', 'w') as outfile:
             json.dump(data, outfile)
+
         await ctx.message.reply("Sekunde ich such grad noch was...")
+        time.sleep(10)
+        await ctx.message.reply("Bin sofort da. arggg...")
         time.sleep(5)
         await ctx.message.reply("so, sorry... ein chaos hier...los gehts. schreib ping")
 
-    if ctx.message.get_body() == "ping":
+
+    elif ctx.message.get_body() == "ping":
+        data['player'].append({
+            'number': ctx.message.source.number,
+            'node': 'start',
+            'inventory': 'pinged'
+        })
+        with open('player.json', 'w') as outfile:
+            json.dump(data, outfile)
         await ctx.message.reply("Pong")
-    await ctx.message.reply("blablabla")
+    else:
+        await ctx.message.reply("blablabla")
 
 
 async def main():
@@ -61,7 +73,11 @@ async def main():
         # Run the bot until you press Ctrl-C.
         await bot.start()
 
-
+def initplayerjson():
+    data = {}
+    data['player'] = []
+    with open('player.json', 'w') as outfile:
+        json.dump(data, outfile)
 
 
 
