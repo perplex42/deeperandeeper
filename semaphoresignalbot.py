@@ -6,7 +6,8 @@ bot = Bot("+4915792347840")
 
 def respond(ctx: ChatContext):
     if ctx.message.get_body() == "hi":
-        return "Hallo"+ctx.message.uuid
+        return "deine nummer ist"+str(ctx.message.source.number)
+        print("number:{}".format(ctx.message.source.number))
     if ctx.message.get_body() == "ping":
         return "Pong"
     return "blablabla"
@@ -19,6 +20,7 @@ async def echo(ctx: ChatContext) -> None:
 async def main():
 
     async with bot:
+        await bot.
         # await bot.send_message("+4917699811033", "Hi Alex kam das an?")
         # await bot.send_message("+4915144643840", "Hi Ben Kam das an?")
 
