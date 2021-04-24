@@ -5,8 +5,8 @@ from semaphore import Bot, ChatContext
 bot = Bot("+4915792347840")
 
 def respond(ctx: ChatContext):
-    if ctx.message.get_body() == "Hallo "+ctx.message.uuid:
-        return "Selber Hallo"
+    if ctx.message.get_body() == "hi":
+        return "Hallo"+ctx.message.uuid
     if ctx.message.get_body() == "ping":
         return "Pong"
     return "blablabla"
