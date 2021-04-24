@@ -29,7 +29,25 @@ def respond(ctx: ChatContext):
 
 @bot.handler('')
 async def echo(ctx: ChatContext) -> None:
-    await ctx.message.reply(respond(ctx))
+    if ctx.message.get_body() == "start":
+        data = {}
+        data['player'] = []
+        data['player'].append({
+            'number': ctx.message.source.number,
+            'node': 'start',
+            'inventory': ''
+        })
+
+        with open('data.json', 'w') as outfile:
+            json.dump(data, outfile)
+        await ctx.message.reply("Sekunde ich such grad noch was...")
+        time.sleep(5)
+        await ctx.message.reply("so, sorry... ein chaos hier...los gehts. schreib ping")
+
+    if ctx.message.get_body() == "ping":
+        await ctx.message.reply("Pong")
+    await ctx.message.reply("blablabla")
+
 
 async def main():
 
