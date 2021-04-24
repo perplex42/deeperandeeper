@@ -40,12 +40,18 @@ async def echo(ctx: ChatContext) -> None:
         })
         with open('player.json', 'w') as outfile:
             json.dump(data, outfile)
-
+        time.sleep(5)
+        await ctx.message.reply("Hi, äh. moment")
+        time.sleep(10)
         await ctx.message.reply("Sekunde ich such grad noch was...")
         time.sleep(10)
-        await ctx.message.reply("Bin sofort da. arggg...")
+        await ctx.message.reply("Bin sofort da. arggg...habs gleich und mach ein Foto!")
         time.sleep(5)
-        await ctx.message.reply("so, sorry... ein chaos hier...los gehts. schreib ping")
+        await ctx.message.reply("so, sorry... ein chaos hier...hier. ")
+        attachment = {"filename": "bild.png",
+                      "width": "100",
+                      "height": "100"}
+        await ctx.message.reply("Irgend ne idee was das ist?", attachment)
 
 
     elif ctx.message.get_body() == "ping":
