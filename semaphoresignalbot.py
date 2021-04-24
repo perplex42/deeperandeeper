@@ -1,13 +1,24 @@
 import anyio
+import json
 from semaphore import Bot, ChatContext
 
 # Connect the bot to number.
 bot = Bot("+4915792347840")
 
 def respond(ctx: ChatContext):
-    if ctx.message.get_body() == "hi":
-        return "deine nummer ist"+str(ctx.message.source.number)
-        print("number:{}".format(ctx.message.source.number))
+    if ctx.message.get_body() == "start":
+        data = {}
+        data['player'] = []
+        data['player'].append({
+            'number': ctx.message.source.number,
+            'node': 'start',
+            'inventory': ''
+        })
+
+        with open('data.json', 'w') as outfile:
+            json.dump(data, outfile)
+        return "los gehts"
+
     if ctx.message.get_body() == "ping":
         return "Pong"
     return "blablabla"
