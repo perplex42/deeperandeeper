@@ -20,7 +20,6 @@ async def echo(ctx: ChatContext) -> None:
 async def main():
 
     async with bot:
-        await bot.
         # await bot.send_message("+4917699811033", "Hi Alex kam das an?")
         # await bot.send_message("+4915144643840", "Hi Ben Kam das an?")
 
