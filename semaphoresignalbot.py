@@ -51,14 +51,11 @@ async def echo(ctx: ChatContext) -> None:
 
 
     elif ctx.message.get_body() == "pic":
-        path = Path(__file__).parent.absolute() / "bild.png"
-        print("PFAD______"+path)
-        '''
-        attachment = {"filename": str(path),
+        path = "~/deeperanddeeper/bild.png"
+        attachment = {"filename": path,
                       "width": "100",
                       "height": "100"}
         await ctx.message.reply("Irgend ne idee was das ist?", attachments[attachment])
-        '''
         await ctx.message.reply("pix ende")
     elif ctx.message.get_body() == "ping":
         data['player'].append({
