@@ -50,10 +50,8 @@ async def echo(ctx: ChatContext) -> None:
         time.sleep(5)
         await ctx.message.reply("so, sorry... ein chaos hier...hier. schreib pic")
 
-
     elif ctx.message.get_body() == "pic":
         path = Path(__file__).parent.absolute() / "apod.jpg"
-        print("======="+path)
         attachment = {"filename": str(path),
                       "width": "100",
                       "height": "100"}
