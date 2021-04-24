@@ -55,6 +55,7 @@ async def echo(ctx: ChatContext) -> None:
         attachment = {"filename": str(path),
                       "width": "100",
                       "height": "100"}
+        print(attachment)
         await ctx.message.reply("Irgend ne idee was das ist?", attachments[attachment])
     elif ctx.message.get_body() == "ping":
         data['player'].append({
