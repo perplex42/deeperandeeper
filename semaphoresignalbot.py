@@ -2,7 +2,6 @@ import anyio
 import json
 import time
 from pathlib import Path
-import asks  # type: ignore
 from semaphore import Bot, ChatContext
 
 # Connect the bot to number.
@@ -53,16 +52,10 @@ async def echo(ctx: ChatContext) -> None:
 
     elif ctx.message.get_body() == "pic":
         path = Path(__file__).parent.absolute() / "apod.jpg"
-        r = await asks.get("https://apod.nasa.gov/apod/calendar/S_210418.jpg", stream=True)
-        async with await anyio.open_file(path, "wb") as f:
-            async for chunk in r.body:
-                await f.write(chunk)
-
         attachment = {"filename": str(path),
                       "width": "100",
                       "height": "100"}
         print(attachment)
-
         await ctx.message.reply(body="Irgend ne idee was das ist?", attachments=[attachment])
     elif ctx.message.get_body() == "ping":
         data['player'].append({
