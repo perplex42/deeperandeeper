@@ -1,16 +1,14 @@
 import anyio
 import time
 from semaphore import Bot, ChatContext
+import queue
+
 
 # Connect the bot to number.
 bot = Bot("+4915792347840")
 
 def respond(ctx: ChatContext):
-    if ctx.message.get_body() == "Hallo":
-        return "Selber Hallo"
-    if ctx.message.get_body() == "ping":
-        return "Pong"
-    return "blablabla"
+    ctx.message.get_body()
 
 
 @bot.handler('')
@@ -18,6 +16,7 @@ async def echo(ctx: ChatContext) -> None:
     await ctx.message.reply(respond(ctx))
 
 async def main():
+
 
     async with bot:
         await bot.send_message("+4917699811033", "Hi Alex kam das an?")

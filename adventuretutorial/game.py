@@ -7,8 +7,6 @@ from player import Player
 from pathlib import Path
 import pickle
 from signalinterface import receive_msg
-from signalinterface import send_msg
-
 
 def play(player_id, message, saved_world=None, saved_player=None):
     if saved_world and saved_player:
@@ -17,9 +15,10 @@ def play(player_id, message, saved_world=None, saved_player=None):
     else:
         world.load_tiles()
         player = Player()
-    game_loop(player, player_id, message)
+    return game_loop(player, player_id, message)
 
 def game_loop(player, player_id, message):
+    answer_message = ''
     room = world.tile_exists(player.location_x, player.location_y)
 
     if player.is_alive() and not player.victory:
@@ -37,21 +36,24 @@ def game_loop(player, player_id, message):
                     player.do_action(action, **action.kwargs)
                     correct_command=True
             if not correct_command:
-                send_msg(player_id, room.intro_text())
-                send_msg(player_id, "Choose an action:\n")
+                answer_message=answer_message+'\n'+room.intro_text()
+                answer_message=answer_message+'\n'+"Choose an action:\n"
                 for action in available_actions:
-                    send_msg(player_id, action)
+                    answer_message = answer_message +'\n'+ str(action)
 
         player.save_and_exit(player_id)
+    print(answer_message)
+    return answer_message
 
 
 def check_for_save(player_id, message):
     if Path("saved_player_{}.p".format(player_id)).is_file() and Path("saved_world_{}.p".format(player_id)).is_file():
         saved_world = pickle.load(open("saved_world_{}.p".format(player_id), "rb"))
         saved_player = pickle.load(open("saved_player_{}.p".format(player_id), "rb"))
-        play(player_id, message, saved_world, saved_player)
+        return_message = play(player_id, message, saved_world, saved_player)
     else:
-        play(player_id, message)
+        return_message = play(player_id, message)
+    return return_message
 
 if __name__ == "__main__":
     check_for_save()

@@ -5,22 +5,37 @@ import pathlib as Path
 import adventuretutorial
 from typing import Union
 import time
-from signalinterface import receive_msg
-from signalinterface import send_msg
+
+import sema
+import anyio
+import time
+from semaphore import Bot, ChatContext
 
 
+# Connect the bot to number.
+bot = Bot("+491711420688")
 
-def main():
+def respond(ctx: ChatContext):
+
+    return check_for_save(ctx.message.source.number, ctx.message.get_body())
 
 
-    while (True):
+@bot.handler('')
+async def echo(ctx: ChatContext) -> None:
+    await ctx.message.reply(respond(ctx))
 
-        player_id, message= receive_msg()
-        # if Path("saved_player_{}.p".format(player_id)).is_file() and Path("saved_world_{}.p".format(player_id)).is_file():
+async def main():
 
-        check_for_save(player_id,message)
+    async with bot:
 
-        time.sleep(1)
+        #await bot.send_message("+4917699811033", "Hi Alex kam das an?")
+        #await bot.send_message("+4915144643840", "Hi Ben Kam das an?")
 
-if __name__ == "__main__":
-    main()
+        # Set profile name.
+        await bot.set_profile("TROLOLO")
+
+        # Run the bot until you press Ctrl-C.
+        await bot.start()
+
+
+anyio.run(main)
