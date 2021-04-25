@@ -56,8 +56,11 @@ async def echo(ctx: ChatContext) -> None:
     elif ctx.message.get_body() == "ping":
         await ctx.message.reply("Pong")
 
+    elif ctx.message.get_body() == "inventory":
+        await ctx.message.reply("I have"+str(player['inventory']))
+
     else:
-        await ctx.message.reply("INVENTORY:"+str(player['inventory']))
+        await ctx.message.reply("Hey "+ctx.message.username+"... don't know, don't care.")
 
 
 async def main():
