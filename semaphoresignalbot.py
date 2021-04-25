@@ -60,7 +60,7 @@ async def echo(ctx: ChatContext) -> None:
         await ctx.message.reply("I have"+str(player['inventory']))
 
     else:
-        await ctx.message.reply("Hey "+ctx.message.username+"... don't know, don't care.")
+        await ctx.message.reply("Hey "+ctx.message.uuid+"... don't know, don't care.")
 
 
 async def main():
