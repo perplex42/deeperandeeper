@@ -2,6 +2,8 @@ import anyio
 import json
 import time
 from pathlib import Path
+
+import semaphore
 from semaphore import Bot, ChatContext
 
 # Connect the bot to number.
@@ -9,29 +11,33 @@ bot = Bot("+4915792347840")
 
 def respond(ctx: ChatContext):
     if ctx.message.get_body() == "start":
-        data = {}
-        data['player'] = []
-        data['player'].append({
-            'number': ctx.message.source.number,
-            'node': 'start',
-            'inventory': ''
-        })
+        player = {}
+        player['number'] = ctx.message.source.number
+        player['node'] = 'start'
+        player['inventory'] = ['alive']
+        with open('./player/'+ctx.message.source.number+'.json', 'w') as fp:
+        json.dump(data, fp, sort_keys=True, indent=4)
 
-        with open('data.json', 'w') as outfile:
-            json.dump(data, outfile)
         bot.send_message(ctx.message.source.number, "Sekunde ich such grad noch was...")
         time.sleep(5)
         return "so, sorry... ein chaos hier...los gehts. schreib ping"
 
+    with open('./player/'+ctx.message.source.number+'.json', 'r') as fp:
+        player = json.load(fp)
+
     if ctx.message.get_body() == "ping":
         return "Pong"
-    return "blablabla"
+        player['node'] = 'pinged'
+        with open('./player/'+ctx.message.source.number+'.json', 'w') as fp:
+        json.dump(data, fp, sort_keys=True, indent=4)
+
+    return "Du bist auf"+player['node']
 
 
 @bot.handler('')
 async def echo(ctx: ChatContext) -> None:
     # wenn nicht existent initplayerjson()
-    with open('player.json') as json_file:
+    with open('./player/player.json') as json_file:
         data = json.load(json_file)
     if ctx.message.get_body() == "start":
         data['player'].append({
@@ -56,6 +62,7 @@ async def echo(ctx: ChatContext) -> None:
                       "width": "100",
                       "height": "100"}
         print(attachment)
+
         await ctx.message.reply(body="Irgend ne idee was das ist?", attachments=[attachment])
 
     elif ctx.message.get_body() == "ping":
