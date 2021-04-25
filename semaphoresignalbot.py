@@ -13,6 +13,9 @@ bot = Bot("+4915792347840")
 @bot.handler('')
 async def echo(ctx: ChatContext) -> None:
     playerpath = './player/' + ctx.message.source.number + '.json'
+    with open(playerpath, 'r') as fp:
+        player = json.load(fp)
+
     if ctx.message.get_body() == "start":
         player = {'number': ctx.message.source.number, 'node': 'start', 'inventory': ['alive']}
         with open(playerpath, 'w') as fp:
@@ -26,10 +29,7 @@ async def echo(ctx: ChatContext) -> None:
         time.sleep(5)
         await ctx.message.reply("so, sorry... ein chaos hier...hier. schreib pic")
 
-    with open(playerpath, 'r') as fp:
-        player = json.load(fp)
-
-    elif ctx.message.get_body() == "pic":
+    if ctx.message.get_body() == "pic":
         '''
         path = Path(__file__).parent.absolute() / "apod.jpg"
         attachment = {"filename": str(path),
