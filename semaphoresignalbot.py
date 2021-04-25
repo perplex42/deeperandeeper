@@ -9,41 +9,14 @@ from semaphore import Bot, ChatContext
 # Connect the bot to number.
 bot = Bot("+4915792347840")
 
-def respond(ctx: ChatContext):
-    if ctx.message.get_body() == "start":
-        player = {'number': ctx.message.source.number, 'node': 'start', 'inventory': ['alive']}
-        with open('./player/'+ctx.message.source.number+'.json', 'w') as fp:
-            json.dump(player, fp, sort_keys=True, indent=4)
-
-        bot.send_message(ctx.message.source.number, "Sekunde ich such grad noch was...")
-        time.sleep(5)
-        return "so, sorry... ein chaos hier...los gehts. schreib ping"
-
-    with open('./player/'+ctx.message.source.number+'.json', 'r') as fp:
-        player = json.load(fp)
-
-    if ctx.message.get_body() == "ping":
-        return "Pong"
-        player['node'] = 'pinged'
-        with open('./player/'+ctx.message.source.number+'.json', 'w') as fp:
-            json.dump(data, fp, sort_keys=True, indent=4)
-
-    return "Du bist auf"+player['node']
-
 
 @bot.handler('')
 async def echo(ctx: ChatContext) -> None:
-    # wenn nicht existent initplayerjson()
-    with open('./player/player.json') as json_file:
-        data = json.load(json_file)
+    playerpath = './player/' + ctx.message.source.number + '.json'
     if ctx.message.get_body() == "start":
-        data['player'].append({
-            'number': ctx.message.source.number,
-            'node': 'start',
-            'inventory': ''
-        })
-        with open('player.json', 'w') as outfile:
-            json.dump(data, outfile)
+        player = {'number': ctx.message.source.number, 'node': 'start', 'inventory': ['alive']}
+        with open(playerpath, 'w') as fp:
+            json.dump(player, fp, sort_keys=True, indent=4)
         time.sleep(5)
         await ctx.message.reply("Hi, äh. moment")
         time.sleep(10)
@@ -53,7 +26,11 @@ async def echo(ctx: ChatContext) -> None:
         time.sleep(5)
         await ctx.message.reply("so, sorry... ein chaos hier...hier. schreib pic")
 
+    with open(playerpath, 'r') as fp:
+        player = json.load(fp)
+
     elif ctx.message.get_body() == "pic":
+        '''
         path = Path(__file__).parent.absolute() / "apod.jpg"
         attachment = {"filename": str(path),
                       "width": "100",
@@ -61,22 +38,17 @@ async def echo(ctx: ChatContext) -> None:
         print(attachment)
 
         await ctx.message.reply(body="Irgend ne idee was das ist?", attachments=[attachment])
-
+        '''
     elif ctx.message.get_body() == "ping":
-        data['player'].append({
-            'number': ctx.message.source.number,
-            'node': 'start',
-            'inventory': 'pinged'
-        })
-        with open('player.json', 'w') as outfile:
-            json.dump(data, outfile)
+        player['node'] = 'pinged'
+        with open(playerpath, 'w') as fp:
+            json.dump(data, fp, sort_keys=True, indent=4)
         await ctx.message.reply("Pong")
     else:
         await ctx.message.reply("blablabla")
 
 
 async def main():
-
     async with bot:
         # await bot.send_message("+4917699811033", "Hi Alex kam das an?")
         # await bot.send_message("+4915144643840", "Hi Ben Kam das an?")
@@ -86,13 +58,6 @@ async def main():
 
         # Run the bot until you press Ctrl-C.
         await bot.start()
-
-def initplayerjson():
-    data = {}
-    data['player'] = []
-    with open('player.json', 'w') as outfile:
-        json.dump(data, outfile)
-
 
 
 anyio.run(main)
