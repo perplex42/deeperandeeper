@@ -11,12 +11,9 @@ bot = Bot("+4915792347840")
 
 def respond(ctx: ChatContext):
     if ctx.message.get_body() == "start":
-        player = {}
-        player['number'] = ctx.message.source.number
-        player['node'] = 'start'
-        player['inventory'] = ['alive']
+        player = {'number': ctx.message.source.number, 'node': 'start', 'inventory': ['alive']}
         with open('./player/'+ctx.message.source.number+'.json', 'w') as fp:
-        json.dump(data, fp, sort_keys=True, indent=4)
+            json.dump(player, fp, sort_keys=True, indent=4)
 
         bot.send_message(ctx.message.source.number, "Sekunde ich such grad noch was...")
         time.sleep(5)
@@ -29,7 +26,7 @@ def respond(ctx: ChatContext):
         return "Pong"
         player['node'] = 'pinged'
         with open('./player/'+ctx.message.source.number+'.json', 'w') as fp:
-        json.dump(data, fp, sort_keys=True, indent=4)
+            json.dump(data, fp, sort_keys=True, indent=4)
 
     return "Du bist auf"+player['node']
 
