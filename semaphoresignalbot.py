@@ -42,7 +42,7 @@ async def echo(ctx: ChatContext) -> None:
     elif ctx.message.get_body() == "ping":
         player['node'] = 'pinged'
         with open(playerpath, 'w') as fp:
-            json.dump(data, fp, sort_keys=True, indent=4)
+            json.dump(player, fp, sort_keys=True, indent=4)
         await ctx.message.reply("Pong")
     else:
         await ctx.message.reply("blablabla")
