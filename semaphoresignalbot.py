@@ -13,8 +13,12 @@ bot = Bot("+4915792347840")
 @bot.handler('')
 async def echo(ctx: ChatContext) -> None:
     playerpath = './player/' + ctx.message.source.number + '.json'
-    with open(playerpath, 'r') as fp:
-        player = json.load(fp)
+    try:
+        with open(playerpath, 'r') as fp:
+            player = json.load(fp)
+    except FileNotFoundError:
+        print("file not found")
+
 
     if ctx.message.get_body() == "start":
         player = {'number': ctx.message.source.number, 'node': 'start', 'inventory': ['alive']}
